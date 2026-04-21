@@ -1,6 +1,6 @@
 # store-front
 
-This is a Vue.js app that simulates a store front. It is meant to be used in conjunction with the product-service and order-service. The app is extremely simple in that it only has a cart and a order submission button. When the order submission button is clicked, the cart is emptied and the order is sent to the order service. Currently there is no order checkout pages to collect any customer information.  
+This is a Vue.js app that simulates a store front. It is meant to be used in conjunction with the product-service and order-service. The app is extremely simple in that it only has a cart and a order submission button. When the order submission button is clicked, the cart is emptied and the order is sent to the order service. Currently there is no order checkout pages to collect any customers information.  
 
 ## Running the app locally
 
