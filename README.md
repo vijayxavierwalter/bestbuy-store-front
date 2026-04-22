@@ -1,45 +1,114 @@
-# store-front
+# Best Buy Store Front
 
-This is a Vue.js app that simulates a store front. It is meant to be used in conjunction with the product-service and order-service. The app is extremely simple in that it only has a cart and a order submission button. When the order submission button is clicked, the cart is emptied and the order is sent to the order service. Currently there is no order checkout pages to collect any customers information.  
+## Overview
 
-## Running the app locally
+The **Store Front** is the customer-facing web application for the Best Buy Cloud-Native Application.
+
+It allows customers to:
+
+* Browse products
+* Add products to a cart
+* Submit orders
+
+This frontend communicates with:
+
+* **product-service** to retrieve product data
+* **order-service** to submit customer orders
+
+---
+
+## Features
+
+* View all available products
+* Add items to cart
+* Remove items from cart
+* Submit an order
+* Display product information from the product-service API
+
+---
+
+## Tech Stack
+
+* **Vue.js**
+* **JavaScript**
+* **Docker**
+* **Nginx**
+
+---
+
+## Environment Variables
+
+The application expects these environment variables:
+
+```bash
+VUE_APP_PRODUCT_SERVICE_URL=http://localhost:3002/
+VUE_APP_ORDER_SERVICE_URL=http://localhost:3000/
+```
+
+---
+
+## Running Locally
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/)
-- [Vue CLI Service](https://cli.vuejs.org/guide/cli-service.html)
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+* Node.js
+* npm
 
-### Running the app
-
-The app relies on the product-service and the order-service and the rabbitmq instance running. A docker-compose file is provided to make this easy.
-
-To run the necessary services, clone the repo, open a terminal, and navigate to the `store-front` directory. Then run the following command:
+### Install dependencies
 
 ```bash
-docker compose up
+npm install
 ```
 
-With the services running, open a new terminal and navigate to the `store-front` directory. Then run the following commands:
+### Run the application
 
 ```bash
-export VUE_APP_PRODUCT_SERVICE_URL=http://localhost:3002/
-export VUE_APP_ORDER_SERVICE_URL=http://localhost:3000/
-
-npm install
 npm run serve
 ```
 
-When the app is running, you should see output similar to the following:
+The app will run locally on:
 
 ```text
-  App running at:
-  - Local:   http://localhost:8080/ 
-  - Network: http://192.168.0.144:8080/
-
-  Note that the development build is not optimized.
-  To create a production build, run npm run build.
+http://localhost:8080/
 ```
 
-Open a browser and navigate to `http://localhost:8080/`. You should see the store front app running.
+---
+
+## Docker
+
+### Build image
+
+```bash
+docker build -t yourdockerhub/bestbuy-store-front .
+```
+
+### Run container
+
+```bash
+docker run -p 8080:80 yourdockerhub/bestbuy-store-front
+```
+
+---
+
+## Deployment
+
+This service is:
+
+* Containerized with Docker
+* Deployed to **Azure Kubernetes Service (AKS)**
+* Used as the customer-facing UI in the Best Buy microservices application
+
+---
+
+## Related Services
+
+* **product-service** – Product catalog API
+* **order-service** – Order submission API
+* **store-admin** – Admin inventory interface
+* **makeline-service** – Background order processing service
+
+---
+
+## Notes
+
+This service was adapted from a lab starter project and customized for the Best Buy Cloud-Native Application final project.
