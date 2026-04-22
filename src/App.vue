@@ -1,3 +1,4 @@
+```vue
 <template>
   <TopNav :cartItemCount="cartItemCount"/>
   <router-view
@@ -38,7 +39,7 @@ export default {
       fetch('/products')
         .then(response => response.json())
         .then(products => {
-          console.log('success getting proxy products')
+          console.log('Products loaded from product-service')
           this.products = products
         })
         .catch(error => {
@@ -47,15 +48,12 @@ export default {
         })
     },
     addToCart({ productId, quantity }) {
-      // check if the product is already in the cart
       const existingCartItem = this.cartItems.find(
         item => item.product.id == productId
       )
       if (existingCartItem) {
-        // if it is, increment the quantity
         existingCartItem.quantity += quantity
       } else {
-        // if not, find the product, and add it with quantity to the cart
         const product = this.products.find(product => product.id == productId)
         this.cartItems.push({ product, quantity })
       }
@@ -64,10 +62,6 @@ export default {
       this.cartItems.splice(index, 1)
     },
     submitOrder() {
-      // get the order-service URL from an environment variable
-      // const orderServiceUrl = process.env.VUE_APP_ORDER_SERVICE_URL;
-
-      // create an order object
       const order = {
         customerId: Math.floor(Math.random() * 10000000000).toString(),
         items: this.cartItems.map(item => {
@@ -81,7 +75,6 @@ export default {
 
       console.log(JSON.stringify(order));
 
-      // call the order-service using fetch
       fetch(`/order`, {
         method: 'POST',
         headers: {
@@ -92,15 +85,15 @@ export default {
         .then(response => {
           console.log(response)
           if (!response.ok) {
-            alert('Error occurred while submitting order')
+            alert('Failed to place order. Please try again.')
           } else {
             this.cartItems = []
-            alert('Order submitted successfully')
+            alert('Order placed successfully at Best Buy!')
           }
         })
         .catch(error => {
           console.log(error)
-          alert('Error occurred while submitting order')
+          alert('Failed to place order. Please try again.')
         })
     }
   },
@@ -109,18 +102,13 @@ export default {
 
 <style>
 body {
-  background-image: url('@/assets/algonquin.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* Keeps the background in place when scrolling */
+  background-color: #f5f5f5; /* Clean neutral background */
   margin: 0;
   padding: 0;
 }
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 120px;
@@ -131,10 +119,9 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #0a5620;
+  background-color: #0046be; /* Best Buy blue */
   color: #fff;
   padding: 1rem;
-  margin: 0;
 }
 
 nav {
@@ -183,7 +170,7 @@ button {
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .product-card img {
@@ -237,7 +224,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .shopping-cart h2 {
@@ -280,3 +267,4 @@ button {
   background-color: #005f8b;
 }
 </style>
+```
